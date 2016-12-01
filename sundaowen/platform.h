@@ -1,0 +1,25 @@
+#ifndef LIBSUNDAOWEN_SUNDAOWEN_PLATFORM_H_
+#define LIBSUNDAOWEN_SUNDAOWEN_PLATFORM_H_
+
+#define SDW_COMPILER_MSC  1
+#define SDW_COMPILER_GNUC 2
+
+#if defined(_MSC_VER)
+#define SDW_COMPILER SDW_COMPILER_MSC
+#define SDW_COMPILER_VERSION _MSC_VER
+#else
+#define SDW_COMPILER SDW_COMPILER_GNUC
+#define SDW_COMPILER_VERSION (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__)
+#endif
+
+#if SDW_COMPILER == SDW_COMPILER_MSC
+#define SDW_MSC_PUSH_PACKED <pshpack1.h>
+#define SDW_MSC_POP_PACKED <poppack.h>
+#define SDW_GNUC_PACKED
+#else
+#define SDW_MSC_PUSH_PACKED <cstdlib>
+#define SDW_MSC_POP_PACKED <cstdlib>
+#define SDW_GNUC_PACKED __attribute__((packed))
+#endif
+
+#endif	// LIBSUNDAOWEN_SUNDAOWEN_PLATFORM_H_
