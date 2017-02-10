@@ -1,6 +1,6 @@
-#include "shell.h"
-#include "platform.h"
-#include "type.h"
+#include "sdw_shell.h"
+#include "sdw_platform.h"
+#include "sdw_type.h"
 
 void Pause()
 {

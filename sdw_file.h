@@ -1,8 +1,8 @@
-#ifndef LIBSUNDAOWEN_SUNDAOWEN_FILE_H_
-#define LIBSUNDAOWEN_SUNDAOWEN_FILE_H_
+#ifndef LIBSUNDAOWEN_SDW_FILE_H_
+#define LIBSUNDAOWEN_SDW_FILE_H_
 
-#include "platform.h"
-#include "type.h"
+#include "sdw_platform.h"
+#include "sdw_type.h"
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #define Chsize _chsize_s
@@ -12,4 +12,4 @@
 #define Fileno fileno
 #endif
 
-#endif	// LIBSUNDAOWEN_SUNDAOWEN_FILE_H_
+#endif	// LIBSUNDAOWEN_SDW_FILE_H_

@@ -1,7 +1,7 @@
-#ifndef LIBSUNDAOWEN_SUNDAOWEN_TYPE_H_
-#define LIBSUNDAOWEN_SUNDAOWEN_TYPE_H_
+#ifndef LIBSUNDAOWEN_SDW_TYPE_H_
+#define LIBSUNDAOWEN_SDW_TYPE_H_
 
-#include "platform.h"
+#include "sdw_platform.h"
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #define WIN32_LEAN_AND_MEAN
@@ -175,4 +175,4 @@ typedef regex Regex;
 #define STR(x) x
 #endif
 
-#endif	// LIBSUNDAOWEN_SUNDAOWEN_TYPE_H_
+#endif	// LIBSUNDAOWEN_SDW_TYPE_H_

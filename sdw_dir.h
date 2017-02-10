@@ -1,8 +1,8 @@
-#ifndef LIBSUNDAOWEN_SUNDAOWEN_DIR_H_
-#define LIBSUNDAOWEN_SUNDAOWEN_DIR_H_
+#ifndef LIBSUNDAOWEN_SDW_DIR_H_
+#define LIBSUNDAOWEN_SDW_DIR_H_
 
-#include "platform.h"
-#include "type.h"
+#include "sdw_platform.h"
+#include "sdw_type.h"
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #define MkdirA _mkdir
@@ -12,4 +12,4 @@
 #define Mkdir MkdirA
 #endif
 
-#endif	// LIBSUNDAOWEN_SUNDAOWEN_DIR_H_
+#endif	// LIBSUNDAOWEN_SDW_DIR_H_

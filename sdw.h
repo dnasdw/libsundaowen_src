@@ -1,13 +1,13 @@
-#ifndef LIBSUNDAOWEN_SUNDAOWEN_H_
-#define LIBSUNDAOWEN_SUNDAOWEN_H_
+#ifndef LIBSUNDAOWEN_SDW_H_
+#define LIBSUNDAOWEN_SDW_H_
 
-#include "sundaowen/platform.h"
-#include "sundaowen/type.h"
-#include "sundaowen/define.h"
+#include "sdw_platform.h"
+#include "sdw_type.h"
+#include "sdw_define.h"
 
-#include "sundaowen/dir.h"
-#include "sundaowen/file.h"
-#include "sundaowen/shell.h"
-#include "sundaowen/string.h"
+#include "sdw_dir.h"
+#include "sdw_file.h"
+#include "sdw_shell.h"
+#include "sdw_string.h"
 
-#endif	// LIBSUNDAOWEN_SUNDAOWEN_H_
+#endif	// LIBSUNDAOWEN_SDW_H_

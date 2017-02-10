@@ -1,7 +1,7 @@
-#ifndef LIBSUNDAOWEN_SUNDAOWEN_STRING_H_
-#define LIBSUNDAOWEN_SUNDAOWEN_STRING_H_
+#ifndef LIBSUNDAOWEN_SDW_STRING_H_
+#define LIBSUNDAOWEN_SDW_STRING_H_
 
-#include "type.h"
+#include "sdw_type.h"
 
 string FormatV(const char* a_szFormat, va_list a_vaList);
 wstring FormatV(const wchar_t* a_szFormat, va_list a_vaList);
@@ -29,4 +29,4 @@ vector<T> SplitOf(const T& a_sString, const T& a_sSeparatorSet)
 	return vString;
 }
 
-#endif	// LIBSUNDAOWEN_SUNDAOWEN_STRING_H_
+#endif	// LIBSUNDAOWEN_SDW_STRING_H_
