@@ -12,4 +12,6 @@
 #define Fileno fileno
 #endif
 
+void FU16Printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
+
 #endif	// LIBSUNDAOWEN_SDW_FILE_H_
