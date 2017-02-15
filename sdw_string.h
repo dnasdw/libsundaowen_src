@@ -18,9 +18,9 @@ TDest TToT(const TSrc& a_sString, const string& a_sSrcType, const string& a_sDes
 	static const n32 c_nBufferSize = 1024;
 	static const n32 c_nConvertBufferSize = c_nBufferSize - 4;
 	char szBuffer[c_nBufferSize];
+	typename TSrc::value_type* pString = const_cast<typename TSrc::value_type*>(a_sString.c_str());
 	do
 	{
-		typename TSrc::value_type* pString = const_cast<typename TSrc::value_type*>(a_sString.c_str());
 		char* pBuffer = szBuffer;
 		size_t uBufferLeft = c_nConvertBufferSize;
 		n32 nError = iconv(cvt, reinterpret_cast<char**>(&pString), &uStringLeft, &pBuffer, &uBufferLeft);

@@ -1,6 +1,47 @@
 #include "sdw_string.h"
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
+#if SDW_COMPILER_VERSION < 1600
+string WToU8(const wstring& a_sString)
+{
+	n32 nLength = WideCharToMultiByte(CP_UTF8, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	char* pTemp = new char[nLength];
+	WideCharToMultiByte(CP_UTF8, 0, a_sString.c_str(), -1, pTemp, nLength, nullptr, nullptr);
+	string sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
+
+string U16ToU8(const U16String& a_sString)
+{
+	return WToU8(a_sString);
+}
+
+wstring U8ToW(const string& a_sString)
+{
+	n32 nLength = MultiByteToWideChar(CP_UTF8, 0, a_sString.c_str(), -1, nullptr, 0);
+	wchar_t* pTemp = new wchar_t[nLength];
+	MultiByteToWideChar(CP_UTF8, 0, a_sString.c_str(), -1, pTemp, nLength);
+	wstring sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
+
+wstring U16ToW(const U16String& a_sString)
+{
+	return a_sString;
+}
+
+U16String U8ToU16(const string& a_sString)
+{
+	return U8ToW(a_sString);
+}
+
+U16String WToU16(const wstring& a_sString)
+{
+	return a_sString;
+}
+#else
 string WToU8(const wstring& a_sString)
 {
 	static wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
@@ -34,6 +75,7 @@ U16String WToU16(const wstring& a_sString)
 {
 	return U8ToU16(WToU8(a_sString));
 }
+#endif
 #else
 string WToU8(const wstring& a_sString)
 {
