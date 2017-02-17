@@ -4,6 +4,8 @@
 #include "sdw_platform.h"
 #include "sdw_type.h"
 
+void SetLocale();
+
 string WToU8(const wstring& a_sString);
 string U16ToU8(const U16String& a_sString);
 wstring U8ToW(const string& a_sString);

@@ -1,5 +1,14 @@
 #include "sdw_string.h"
 
+void SetLocale()
+{
+#if defined(__APPLE__)
+	setlocale(LC_ALL, "en_US.UTF-8");
+#else
+	setlocale(LC_ALL, "");
+#endif
+}
+
 #if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1600
 string WToU8(const wstring& a_sString)
 {
