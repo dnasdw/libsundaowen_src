@@ -13,7 +13,6 @@
 #include <mach-o/dyld.h>
 #endif
 #include <dirent.h>
-#include <iconv.h>
 #include <unistd.h>
 #endif
 #include <sys/stat.h>
@@ -111,7 +110,7 @@ typedef unsigned long long uint64_t;
 #include <cwctype>
 #include <algorithm>
 #include <bitset>
-#if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION >= 1600
+#if SDW_COMPILER != SDW_COMPILER_MSC || SDW_COMPILER_VERSION >= 1600
 #include <codecvt>
 #endif
 #include <deque>
