@@ -117,4 +117,52 @@ vector<T> SplitOf(const T& a_sString, const T& a_sSeparatorSet)
 	return vString;
 }
 
+template<typename T>
+vector<T> SplitOf(const T& a_sString, const T::value_type* a_pSeparatorSet)
+{
+	if (a_pSeparatorSet == nullptr)
+	{
+		vector<T> vString;
+		vString.push_back(a_sString);
+		return vString;
+	}
+	else
+	{
+		return SplitOf(a_sString, T(a_pSeparatorSet));
+	}
+}
+
+template<typename T>
+vector<T> SplitOf(const T::value_type* a_pString, const T& a_sSeparatorSet)
+{
+	if (a_pString == nullptr)
+	{
+		vector<T> vString;
+		vString.push_back(a_pString);
+		return vString;
+	}
+	else
+	{
+		return SplitOf(T(a_pString), a_sSeparatorSet);
+	}
+}
+
+template<typename T>
+vector<T> SplitOf(const T::value_type* a_pString, const T::value_type* a_pSeparatorSet)
+{
+	if (a_pString == nullptr || a_pSeparatorSet == nullptr)
+	{
+		vector<T> vString;
+		if (a_pString != nullptr)
+		{
+			vString.push_back(a_sString);
+		}
+		return vString;
+	}
+	else
+	{
+		return SplitOf(T(a_pString), T(a_pSeparatorSet));
+	}
+}
+
 #endif	// LIBSUNDAOWEN_SDW_STRING_H_
