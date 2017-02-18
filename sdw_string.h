@@ -114,6 +114,10 @@ vector<T> SplitOf(const T& a_sString, const T& a_sSeparatorSet)
 			break;
 		}
 	}
+	if (vString.empty())
+	{
+		vString.push_back(a_sString);
+	}
 	return vString;
 }
 
@@ -153,6 +157,10 @@ vector<T> RegexSplitWith(const T& a_sString, const T& a_sSeparatorSet)
 	if (uPos0 != a_sString.size())
 	{
 		vString.push_back(a_sString.substr(uPos0));
+	}
+	if (vString.empty())
+	{
+		vString.push_back(a_sString);
 	}
 	return vString;
 }
@@ -195,6 +203,10 @@ vector<T> RegexSplitWithCut(const T& a_sString, const T& a_sSeparatorSet)
 	if (uPos0 != a_sString.size())
 	{
 		vString.push_back(a_sString.substr(uPos0));
+	}
+	if (vString.empty())
+	{
+		vString.push_back(a_sString);
 	}
 	return vString;
 }
