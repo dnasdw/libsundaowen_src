@@ -9,6 +9,86 @@ void SetLocale()
 #endif
 }
 
+n8 SToN8(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<n8>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n8 SToN8(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<n8>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n16 SToN16(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<n16>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n16 SToN16(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<n16>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n32 SToN32(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<n32>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n32 SToN32(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<n32>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+n64 SToN64(const string& a_sString, n32 a_nRadix)
+{
+	return strtoll(a_sString.c_str(), nullptr, a_nRadix);
+}
+
+n64 SToN64(const wstring& a_sString, n32 a_nRadix)
+{
+	return wcstoll(a_sString.c_str(), nullptr, a_nRadix);
+}
+
+u8 SToU8(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<u8>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u8 SToU8(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<u8>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u16 SToU16(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<u16>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u16 SToU16(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<u16>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u32 SToU32(const string& a_sString, n32 a_nRadix)
+{
+	return static_cast<u32>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u32 SToU32(const wstring& a_sString, n32 a_nRadix)
+{
+	return static_cast<u32>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+}
+
+u64 SToU64(const string& a_sString, n32 a_nRadix)
+{
+	return strtoull(a_sString.c_str(), nullptr, a_nRadix);
+}
+
+u64 SToU64(const wstring& a_sString, n32 a_nRadix)
+{
+	return wcstoull(a_sString.c_str(), nullptr, a_nRadix);
+}
+
 #if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1600
 string WToU8(const wstring& a_sString)
 {

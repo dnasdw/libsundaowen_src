@@ -6,6 +6,23 @@
 
 void SetLocale();
 
+n8 SToN8(const string& a_sString, n32 a_nRadix);
+n8 SToN8(const wstring& a_sString, n32 a_nRadix);
+n16 SToN16(const string& a_sString, n32 a_nRadix);
+n16 SToN16(const wstring& a_sString, n32 a_nRadix);
+n32 SToN32(const string& a_sString, n32 a_nRadix);
+n32 SToN32(const wstring& a_sString, n32 a_nRadix);
+n64 SToN64(const string& a_sString, n32 a_nRadix);
+n64 SToN64(const wstring& a_sString, n32 a_nRadix);
+u8 SToU8(const string& a_sString, n32 a_nRadix);
+u8 SToU8(const wstring& a_sString, n32 a_nRadix);
+u16 SToU16(const string& a_sString, n32 a_nRadix);
+u16 SToU16(const wstring& a_sString, n32 a_nRadix);
+u32 SToU32(const string& a_sString, n32 a_nRadix);
+u32 SToU32(const wstring& a_sString, n32 a_nRadix);
+u64 SToU64(const string& a_sString, n32 a_nRadix);
+u64 SToU64(const wstring& a_sString, n32 a_nRadix);
+
 string WToU8(const wstring& a_sString);
 string U16ToU8(const U16String& a_sString);
 wstring U8ToW(const string& a_sString);
@@ -93,6 +110,46 @@ T Replace(const T& a_sString, const typename T::value_type* a_pSubString, const 
 	else
 	{
 		return Replace(a_sString, T(a_pSubString), T(a_pReplacement));
+	}
+}
+
+template<typename T>
+vector<T> Split(const T& a_sString, const T& a_sSeparator)
+{
+	vector<T> vString;
+	for (typename T::size_type uOffset = 0; uOffset < a_sString.size(); uOffset += a_sSeparator.size())
+	{
+		typename T::size_type uPos = a_sString.find(a_sSeparator, uOffset);
+		if (uPos != T::npos)
+		{
+			vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
+			uOffset = uPos;
+		}
+		else
+		{
+			vString.push_back(a_sString.substr(uOffset));
+			break;
+		}
+	}
+	if (vString.empty())
+	{
+		vString.push_back(a_sString);
+	}
+	return vString;
+}
+
+template<typename T>
+vector<T> Split(const T& a_sString, const typename T::value_type* a_pSeparator)
+{
+	if (a_pSeparator == nullptr)
+	{
+		vector<T> vString;
+		vString.push_back(a_sString);
+		return vString;
+	}
+	else
+	{
+		return Split(a_sString, T(a_pSeparator));
 	}
 }
 

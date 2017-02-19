@@ -153,6 +153,12 @@ typedef uint64_t u64;
 #if SDW_COMPILER_VERSION < 1600
 #define nullptr NULL
 #endif
+#if SDW_COMPILER_VERSION < 1800
+#define strtoll _strtoi64
+#define strtoull _strtoui64
+#define wcstoll _wcstoi64
+#define wcstoull _wcstoui64
+#endif
 #if SDW_COMPILER_VERSION < 1600
 typedef wchar_t Char16_t;
 typedef wstring U16String;
