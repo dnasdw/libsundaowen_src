@@ -7,9 +7,11 @@
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #define Chsize _chsize_s
 #define Fileno _fileno
+#define Fopen _wfopen
 #else
 #define Chsize ftruncate
 #define Fileno fileno
+#define Fopen fopen
 #endif
 
 void FU16Printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);

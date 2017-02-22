@@ -172,12 +172,14 @@ typedef u16string U16String;
 typedef wstring String;
 typedef wregex Regex;
 #define STR(x) L##x
+#define Printf wprintf
 #else
 typedef char16_t Char16_t;
 typedef u16string U16String;
 typedef string String;
 typedef regex Regex;
 #define STR(x) x
+#define Printf printf
 #endif
 
 #endif	// LIBSUNDAOWEN_SDW_TYPE_H_

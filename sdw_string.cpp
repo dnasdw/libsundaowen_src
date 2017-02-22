@@ -165,6 +165,23 @@ U16String WToU16(const wstring& a_sString)
 }
 #endif
 
+#if SDW_COMPILER == SDW_COMPILER_MSC
+wstring AToW(const string& a_sString)
+{
+	n32 nLength = MultiByteToWideChar(CP_ACP, 0, a_sString.c_str(), -1, nullptr, 0);
+	wchar_t* pTemp = new wchar_t[nLength];
+	MultiByteToWideChar(CP_ACP, 0, a_sString.c_str(), -1, pTemp, nLength);
+	wstring sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
+#else
+wstring AToW(const string& a_sString)
+{
+	return U8ToW(a_sString);
+}
+#endif
+
 static const n32 s_nFormatBufferSize = 4096;
 
 string FormatV(const char* a_szFormat, va_list a_vaList)
