@@ -169,17 +169,17 @@ typedef basic_string<Char16_t> U16String;
 typedef char16_t Char16_t;
 typedef u16string U16String;
 #endif
-typedef wstring String;
-typedef wregex Regex;
-#define STR(x) L##x
-#define Printf wprintf
+typedef wstring UString;
+typedef wregex URegex;
+#define USTR(x) L##x
+#define UPrintf wprintf
 #else
 typedef char16_t Char16_t;
 typedef u16string U16String;
-typedef string String;
-typedef regex Regex;
-#define STR(x) x
-#define Printf printf
+typedef string UString;
+typedef regex URegex;
+#define USTR(x) x
+#define UPrintf printf
 #endif
 
 #endif	// LIBSUNDAOWEN_SDW_TYPE_H_

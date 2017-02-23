@@ -1,7 +1,7 @@
 #include "sdw_file.h"
 #include "sdw_string.h"
 
-void FU16Printf(FILE* a_pFile, const wchar_t* a_szFormat, ...)
+void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...)
 {
 	va_list vaList;
 	va_start(vaList, a_szFormat);

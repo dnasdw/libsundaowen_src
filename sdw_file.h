@@ -7,13 +7,13 @@
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #define Chsize _chsize_s
 #define Fileno _fileno
-#define Fopen _wfopen
+#define UFopen _wfopen
 #else
 #define Chsize ftruncate
 #define Fileno fileno
-#define Fopen fopen
+#define UFopen fopen
 #endif
 
-void FU16Printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
+void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
 
 #endif	// LIBSUNDAOWEN_SDW_FILE_H_
