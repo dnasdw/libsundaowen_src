@@ -165,6 +165,11 @@ U16String WToU16(const wstring& a_sString)
 }
 #endif
 
+string AToU8(const string& a_sString)
+{
+	return WToU8(AToW(a_sString));
+}
+
 #if SDW_COMPILER == SDW_COMPILER_MSC
 wstring AToW(const string& a_sString)
 {

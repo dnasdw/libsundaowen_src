@@ -29,6 +29,7 @@ wstring U8ToW(const string& a_sString);
 wstring U16ToW(const U16String& a_sString);
 U16String U8ToU16(const string& a_sString);
 U16String WToU16(const wstring& a_sString);
+string AToU8(const string& a_sString);
 wstring AToW(const string& a_sString);
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
