@@ -6,22 +6,22 @@
 
 void SetLocale();
 
-n8 SToN8(const string& a_sString, int a_nRadix);
-n8 SToN8(const wstring& a_sString, int a_nRadix);
-n16 SToN16(const string& a_sString, int a_nRadix);
-n16 SToN16(const wstring& a_sString, int a_nRadix);
-n32 SToN32(const string& a_sString, int a_nRadix);
-n32 SToN32(const wstring& a_sString, int a_nRadix);
-n64 SToN64(const string& a_sString, int a_nRadix);
-n64 SToN64(const wstring& a_sString, int a_nRadix);
-u8 SToU8(const string& a_sString, int a_nRadix);
-u8 SToU8(const wstring& a_sString, int a_nRadix);
-u16 SToU16(const string& a_sString, int a_nRadix);
-u16 SToU16(const wstring& a_sString, int a_nRadix);
-u32 SToU32(const string& a_sString, int a_nRadix);
-u32 SToU32(const wstring& a_sString, int a_nRadix);
-u64 SToU64(const string& a_sString, int a_nRadix);
-u64 SToU64(const wstring& a_sString, int a_nRadix);
+n8 SToN8(const string& a_sString, int a_nRadix = 10);
+n8 SToN8(const wstring& a_sString, int a_nRadix = 10);
+n16 SToN16(const string& a_sString, int a_nRadix = 10);
+n16 SToN16(const wstring& a_sString, int a_nRadix = 10);
+n32 SToN32(const string& a_sString, int a_nRadix = 10);
+n32 SToN32(const wstring& a_sString, int a_nRadix = 10);
+n64 SToN64(const string& a_sString, int a_nRadix = 10);
+n64 SToN64(const wstring& a_sString, int a_nRadix = 10);
+u8 SToU8(const string& a_sString, int a_nRadix = 10);
+u8 SToU8(const wstring& a_sString, int a_nRadix = 10);
+u16 SToU16(const string& a_sString, int a_nRadix = 10);
+u16 SToU16(const wstring& a_sString, int a_nRadix = 10);
+u32 SToU32(const string& a_sString, int a_nRadix = 10);
+u32 SToU32(const wstring& a_sString, int a_nRadix = 10);
+u64 SToU64(const string& a_sString, int a_nRadix = 10);
+u64 SToU64(const wstring& a_sString, int a_nRadix = 10);
 
 string WToU8(const wstring& a_sString);
 string U16ToU8(const U16String& a_sString);
@@ -32,7 +32,7 @@ U16String WToU16(const wstring& a_sString);
 string AToU8(const string& a_sString);
 wstring AToW(const string& a_sString);
 
-#if SDW_COMPILER == SDW_COMPILER_MSC
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 #define U16ToU(x) U16ToW(x)
 #define UToU16(x) WToU16(x)
 #define AToU(x) AToW(x)
