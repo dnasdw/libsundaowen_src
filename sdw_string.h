@@ -6,22 +6,22 @@
 
 void SetLocale();
 
-n8 SToN8(const string& a_sString, n32 a_nRadix);
-n8 SToN8(const wstring& a_sString, n32 a_nRadix);
-n16 SToN16(const string& a_sString, n32 a_nRadix);
-n16 SToN16(const wstring& a_sString, n32 a_nRadix);
-n32 SToN32(const string& a_sString, n32 a_nRadix);
-n32 SToN32(const wstring& a_sString, n32 a_nRadix);
-n64 SToN64(const string& a_sString, n32 a_nRadix);
-n64 SToN64(const wstring& a_sString, n32 a_nRadix);
-u8 SToU8(const string& a_sString, n32 a_nRadix);
-u8 SToU8(const wstring& a_sString, n32 a_nRadix);
-u16 SToU16(const string& a_sString, n32 a_nRadix);
-u16 SToU16(const wstring& a_sString, n32 a_nRadix);
-u32 SToU32(const string& a_sString, n32 a_nRadix);
-u32 SToU32(const wstring& a_sString, n32 a_nRadix);
-u64 SToU64(const string& a_sString, n32 a_nRadix);
-u64 SToU64(const wstring& a_sString, n32 a_nRadix);
+n8 SToN8(const string& a_sString, int a_nRadix);
+n8 SToN8(const wstring& a_sString, int a_nRadix);
+n16 SToN16(const string& a_sString, int a_nRadix);
+n16 SToN16(const wstring& a_sString, int a_nRadix);
+n32 SToN32(const string& a_sString, int a_nRadix);
+n32 SToN32(const wstring& a_sString, int a_nRadix);
+n64 SToN64(const string& a_sString, int a_nRadix);
+n64 SToN64(const wstring& a_sString, int a_nRadix);
+u8 SToU8(const string& a_sString, int a_nRadix);
+u8 SToU8(const wstring& a_sString, int a_nRadix);
+u16 SToU16(const string& a_sString, int a_nRadix);
+u16 SToU16(const wstring& a_sString, int a_nRadix);
+u32 SToU32(const string& a_sString, int a_nRadix);
+u32 SToU32(const wstring& a_sString, int a_nRadix);
+u64 SToU64(const string& a_sString, int a_nRadix);
+u64 SToU64(const wstring& a_sString, int a_nRadix);
 
 string WToU8(const wstring& a_sString);
 string U16ToU8(const U16String& a_sString);
@@ -33,8 +33,12 @@ string AToU8(const string& a_sString);
 wstring AToW(const string& a_sString);
 
 #if SDW_COMPILER == SDW_COMPILER_MSC
+#define U16ToU(x) U16ToW(x)
+#define UToU16(x) WToU16(x)
 #define AToU(x) AToW(x)
 #else
+#define U16ToU(x) U16ToU8(x)
+#define UToU16(x) U8ToU16(x)
 #define AToU(x) string(x)
 #endif
 
@@ -44,7 +48,15 @@ string Format(const char* a_szFormat, ...);
 wstring Format(const wchar_t* a_szFormat, ...);
 
 template<typename T>
-T Replace(const T& a_sString, const typename T::value_type a_cSubChar, const T& a_sReplacement)
+T Replace(const T& a_sString, typename T::value_type a_cSubChar, typename T::value_type a_cReplacement)
+{
+	T sString = a_sString;
+	replace(sString.begin(), sString.end(), a_cSubChar, a_cReplacement);
+	return sString;
+}
+
+template<typename T>
+T Replace(const T& a_sString, typename T::value_type a_cSubChar, const T& a_sReplacement)
 {
 	T sString = a_sString;
 	typename T::size_type uPos = 0;
@@ -57,7 +69,7 @@ T Replace(const T& a_sString, const typename T::value_type a_cSubChar, const T& 
 }
 
 template<typename T>
-T Replace(const T& a_sString, const typename T::value_type a_cSubChar, const typename T::value_type* a_pReplacement)
+T Replace(const T& a_sString, typename T::value_type a_cSubChar, const typename T::value_type* a_pReplacement)
 {
 	if (a_pReplacement == nullptr)
 	{
@@ -292,17 +304,20 @@ vector<T> RegexSplitWithCut(const T& a_sString, const typename T::value_type* a_
 }
 
 template<typename T>
-bool StartWith(const T& a_sString, const T& a_sPrefix, u32 a_uStart)
+bool StartWith(const T& a_sString, const T& a_sPrefix, u32 a_uStart = 0)
 {
 	if (a_uStart > static_cast<u32>(a_sString.size()))
 	{
 		return false;
 	}
-	return a_sString.compare(a_uStart, a_sPrefix.size(), a_sPrefix) == 0;
+	else
+	{
+		return a_sString.compare(a_uStart, a_sPrefix.size(), a_sPrefix) == 0;
+	}
 }
 
 template<typename T>
-bool StartWith(const T& a_sString, const typename T::value_type* a_pPrefix, u32 a_uStart)
+bool StartWith(const T& a_sString, const typename T::value_type* a_pPrefix, u32 a_uStart = 0)
 {
 	if (a_pPrefix == nullptr)
 	{
@@ -311,6 +326,55 @@ bool StartWith(const T& a_sString, const typename T::value_type* a_pPrefix, u32 
 	else
 	{
 		return StartWith(a_sString, T(a_pPrefix), a_uStart);
+	}
+}
+
+template<typename T>
+bool EndWith(const T& a_sString, const T& a_sSuffix)
+{
+	if (a_sString.size() < a_sSuffix.size())
+	{
+		return false;
+	}
+	else
+	{
+		return a_sString.compare(a_sString.size() - a_sSuffix.size(), a_sSuffix.size(), a_sSuffix) == 0;
+	}
+}
+
+template<typename T>
+bool EndWith(const T& a_sString, const typename T::value_type* a_pSuffix)
+{
+	if (a_pSuffix == nullptr)
+	{
+		return false;
+	}
+	else
+	{
+		return EndWith(a_sString, T(a_pSuffix));
+	}
+}
+
+template<typename T>
+T Trim(const T& a_sString)
+{
+	typename T::size_type uSize = a_sString.size();
+	typename T::size_type uPos = 0;
+	while (uPos < uSize && a_sString[uPos] >= 0 && a_sString[uPos] <= static_cast<typename T::value_type>(' '))
+	{
+		uPos++;
+	}
+	while (uPos < uSize && a_sString[uSize - 1] >= 0 && a_sString[uSize - 1] <= static_cast<typename T::value_type>(' '))
+	{
+		uSize--;
+	}
+	if (uPos > 0 || uSize < a_sString.size())
+	{
+		return a_sString.substr(uPos, uSize - uPos);
+	}
+	else
+	{
+		return a_sString;
 	}
 }
 

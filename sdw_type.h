@@ -3,13 +3,13 @@
 
 #include "sdw_platform.h"
 
-#if SDW_COMPILER == SDW_COMPILER_MSC
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #include <direct.h>
 #include <io.h>
 #else
-#if defined(__APPLE__)
+#if SDW_PLATFORM == SDW_PLATFORM_MACOS
 #include <mach-o/dyld.h>
 #endif
 #include <dirent.h>
@@ -101,6 +101,9 @@ typedef unsigned char      uint8_t;
 typedef unsigned short     uint16_t;
 typedef unsigned int       uint32_t;
 typedef unsigned long long uint64_t;
+#ifndef UINT32_MAX
+#define UINT32_MAX       0xffffffffui32
+#endif
 #endif
 #include <cstdio>
 #include <cstdlib>
@@ -110,7 +113,7 @@ typedef unsigned long long uint64_t;
 #include <cwctype>
 #include <algorithm>
 #include <bitset>
-#if SDW_COMPILER != SDW_COMPILER_MSC || SDW_COMPILER_VERSION >= 1600
+#if SDW_COMPILER != SDW_COMPILER_MSC || (SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION >= 1600)
 #include <codecvt>
 #endif
 #include <deque>
@@ -149,6 +152,7 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #if SDW_COMPILER_VERSION < 1600
 #define nullptr NULL
@@ -169,17 +173,27 @@ typedef basic_string<Char16_t> U16String;
 typedef char16_t Char16_t;
 typedef u16string U16String;
 #endif
+#else
+typedef wchar_t Char16_t;
+typedef wstring U16String;
+#endif
 typedef wstring UString;
 typedef wregex URegex;
+typedef struct _stat64 Stat;
 #define USTR(x) L##x
 #define UPrintf wprintf
+#define UStat _wstat64
 #else
 typedef char16_t Char16_t;
 typedef u16string U16String;
 typedef string UString;
 typedef regex URegex;
+typedef struct stat Stat;
 #define USTR(x) x
 #define UPrintf printf
+#define UStat stat
 #endif
+
+n64 Align(n64 a_nData, n64 a_nAlignment);
 
 #endif	// LIBSUNDAOWEN_SDW_TYPE_H_
