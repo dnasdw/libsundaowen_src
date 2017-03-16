@@ -89,7 +89,7 @@ u64 SToU64(const wstring& a_sString, int a_nRadix /* = 10 */)
 	return wcstoull(a_sString.c_str(), nullptr, a_nRadix);
 }
 
-#if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1600
+#if (SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1600) || (SDW_PLATFORM == SDW_PLATFORM_WINDOWS && SDW_COMPILER != SDW_COMPILER_MSC)
 string WToU8(const wstring& a_sString)
 {
 	int nLength = WideCharToMultiByte(CP_UTF8, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);

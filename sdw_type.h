@@ -12,11 +12,11 @@
 #if SDW_PLATFORM == SDW_PLATFORM_MACOS
 #include <mach-o/dyld.h>
 #endif
-#include <dirent.h>
-#include <unistd.h>
-#endif
 #if SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400
 #include <iconv.h>
+#endif
+#include <dirent.h>
+#include <unistd.h>
 #endif
 #include <sys/stat.h>
 
@@ -190,6 +190,7 @@ typedef wstring UString;
 typedef wregex URegex;
 typedef struct _stat64 Stat;
 #define USTR(x) L##x
+#define PRIUS USTR("ls")
 #define UPrintf wprintf
 #define UStat _wstat64
 #else
@@ -199,6 +200,7 @@ typedef string UString;
 typedef regex URegex;
 typedef struct stat Stat;
 #define USTR(x) x
+#define PRIUS USTR("s")
 #define UPrintf printf
 #define UStat stat
 #endif
