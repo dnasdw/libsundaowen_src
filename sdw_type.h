@@ -15,6 +15,9 @@
 #include <dirent.h>
 #include <unistd.h>
 #endif
+#if SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400
+#include <iconv.h>
+#endif
 #include <sys/stat.h>
 
 #include <cassert>
@@ -113,7 +116,7 @@ typedef unsigned long long uint64_t;
 #include <cwctype>
 #include <algorithm>
 #include <bitset>
-#if SDW_COMPILER != SDW_COMPILER_MSC || (SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION >= 1600)
+#if SDW_COMPILER == SDW_COMPILER_CLANG || (SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION >= 1600) || (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION >= 50400)
 #include <codecvt>
 #endif
 #include <deque>
