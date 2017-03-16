@@ -105,7 +105,13 @@ typedef unsigned short     uint16_t;
 typedef unsigned int       uint32_t;
 typedef unsigned long long uint64_t;
 #ifndef UINT32_MAX
-#define UINT32_MAX       0xffffffffui32
+#define UINT32_MAX       0xffffffffU
+#endif
+#ifndef UINT32_C
+#define UINT32_C(x)  (x ## U)
+#endif
+#ifndef UINT64_C
+#define UINT64_C(x)  (x ## ULL)
 #endif
 #endif
 #include <cstdio>

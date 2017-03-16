@@ -1,11 +1,13 @@
 #ifndef LIBSUNDAOWEN_SDW_DEFINE_H_
 #define LIBSUNDAOWEN_SDW_DEFINE_H_
 
+#include "sdw_type.h"
+
 #define SDW_ARRAY_COUNT(a) (sizeof(a) / sizeof(a[0]))
 
-#define SDW_BIT32(x) (1u << (x))
+#define SDW_BIT32(n) (UINT32_C(1) << (n))
 
-#define SDW_BIT64(x) (1uLL << (x))
+#define SDW_BIT64(n) (UINT64_C(1) << (n))
 
 #define SDW_CONVERT_ENDIAN16(n) (((n) >> 8 & 0xFF) | (((n) & 0xFF) << 8))
 
