@@ -274,7 +274,7 @@ wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 	return TSToS<string, wstring>(a_sString, a_pCodeName, "WCHAR_T");
 }
 
-U16String WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
+string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return TSToS<wstring, string>(a_sString, "WCHAR_T", a_pCodeName);
 }
