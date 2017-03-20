@@ -200,6 +200,21 @@ string AToU8(const string& a_sString)
 	return WToU8(AToW(a_sString));
 }
 
+string U8ToA(const string& a_sString)
+{
+	return WToA(U8ToW(a_sString));
+}
+
+U16String AToU16(const string& a_sString)
+{
+	return WToU16(AToW(a_sString));
+}
+
+string U16ToA(const U16String& a_sString)
+{
+	return WToA(U16ToW(a_sString));
+}
+
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 wstring AToW(const string& a_sString)
 {
@@ -210,10 +225,99 @@ wstring AToW(const string& a_sString)
 	delete[] pTemp;
 	return sString;
 }
+
+string WToA(const wstring& a_sString)
+{
+	int nLength = WideCharToMultiByte(CP_ACP, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	char* pTemp = new char[nLength];
+	WideCharToMultiByte(CP_ACP, 0, a_sString.c_str(), -1, pTemp, nLength, nullptr, nullptr);
+	string sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
 #else
 wstring AToW(const string& a_sString)
 {
 	return U8ToW(a_sString);
+}
+
+string WToA(const wstring& a_sString)
+{
+	return WToU8(a_sString);
+}
+#endif
+
+#if defined(SDW_XCONVERT)
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
+wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	int nLength = MultiByteToWideChar(a_nCodePage, 0, a_sString.c_str(), -1, nullptr, 0);
+	wchar_t* pTemp = new wchar_t[nLength];
+	MultiByteToWideChar(a_nCodePage, 0, a_sString.c_str(), -1, pTemp, nLength);
+	wstring sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
+
+string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	int nLength = WideCharToMultiByte(a_nCodePage, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);
+	char* pTemp = new char[nLength];
+	WideCharToMultiByte(a_nCodePage, 0, a_sString.c_str(), -1, pTemp, nLength, nullptr, nullptr);
+	string sString = pTemp;
+	delete[] pTemp;
+	return sString;
+}
+#else
+wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return TSToS<string, wstring>(a_sString, a_pCodeName, "WCHAR_T");
+}
+
+U16String WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return TSToS<wstring, string>(a_sString, "WCHAR_T", a_pCodeName);
+}
+#endif
+
+string XToU8(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU8(XToW(a_sString, a_nCodePage, a_pCodeName));
+}
+
+string U8ToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(U8ToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+U16String XToU16(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU16(XToW(a_sString, a_nCodePage, a_pCodeName));
+}
+
+string U16ToX(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(U16ToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+string XToA(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToA(XToW(a_sString, a_nCodePage, a_pCodeName));
+}
+
+string AToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(AToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU(XToW(a_sString, a_nCodePage, a_pCodeName));
+}
+
+string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(UToW(a_sString), a_nCodePage, a_pCodeName);
 }
 #endif
 

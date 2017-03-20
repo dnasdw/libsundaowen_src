@@ -23,7 +23,7 @@ u32 SToU32(const wstring& a_sString, int a_nRadix = 10);
 u64 SToU64(const string& a_sString, int a_nRadix = 10);
 u64 SToU64(const wstring& a_sString, int a_nRadix = 10);
 
-#if SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400
+#if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || (SDW_PLATFORM != SDW_PLATFORM_WINDOWS && defined(SDW_XCONVERT))
 template<typename TSrc, typename TDest>
 TDest TSToS(const TSrc& a_sString, const string& a_sSrcType, const string& a_sDestType)
 {
@@ -69,16 +69,43 @@ wstring U16ToW(const U16String& a_sString);
 U16String U8ToU16(const string& a_sString);
 U16String WToU16(const wstring& a_sString);
 string AToU8(const string& a_sString);
+string U8ToA(const string& a_sString);
+U16String AToU16(const string& a_sString);
+string U16ToA(const U16String& a_sString);
 wstring AToW(const string& a_sString);
+string WToA(const wstring& a_sString);
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
+#define U8ToU(x) U8ToW(x)
+#define UToU8(x) WToU8(x)
+#define WToU(x) wstring(x)
+#define UToW(x) wstring(x)
 #define U16ToU(x) U16ToW(x)
 #define UToU16(x) WToU16(x)
 #define AToU(x) AToW(x)
+#define UToA(x) WToA(x)
 #else
+#define U8ToU(x) string(x)
+#define UToU8(x) string(x)
+#define WToU(x) WToU8(x)
+#define UToW(x) U8ToW(x)
 #define U16ToU(x) U16ToU8(x)
 #define UToU16(x) U8ToU16(x)
 #define AToU(x) string(x)
+#define UToA(x) string(x)
+#endif
+
+#if defined(SDW_XCONVERT)
+wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName);
+string XToU8(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string U8ToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+U16String XToU16(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string U16ToX(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName);
+string XToA(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string AToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName);
 #endif
 
 string FormatV(const char* a_szFormat, va_list a_vaList);
