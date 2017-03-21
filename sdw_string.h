@@ -43,7 +43,11 @@ TDest TSToS(const TSrc& a_sString, const string& a_sSrcType, const string& a_sDe
 		char* pBuffer = szBuffer;
 		size_t uBufferLeft = c_nConvertBufferSize;
 		n32 nError = iconv(cd, reinterpret_cast<char**>(&pString), &uStringLeft, &pBuffer, &uBufferLeft);
+#if SDW_PLATFORM == SDW_PLATFORM_MACOS
+		if (nError >= 0 || (nError == static_cast<size_t>(-1) && errno == E2BIG))
+#else
 		if (nError == 0 || (nError == static_cast<size_t>(-1) && errno == E2BIG))
+#endif
 		{
 			*reinterpret_cast<typename TDest::value_type*>(szBuffer + c_nConvertBufferSize - uBufferLeft) = 0;
 			sConverted += reinterpret_cast<typename TDest::value_type*>(szBuffer);
