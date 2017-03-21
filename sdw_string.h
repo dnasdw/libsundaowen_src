@@ -23,7 +23,7 @@ u32 SToU32(const wstring& a_sString, int a_nRadix = 10);
 u64 SToU64(const string& a_sString, int a_nRadix = 10);
 u64 SToU64(const wstring& a_sString, int a_nRadix = 10);
 
-#if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || (SDW_PLATFORM != SDW_PLATFORM_WINDOWS && defined(SDW_XCONVERT))
+#if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || SDW_PLATFORM == SDW_PLATFORM_CYGWIN || (SDW_PLATFORM != SDW_PLATFORM_WINDOWS && defined(SDW_XCONVERT))
 template<typename TSrc, typename TDest>
 TDest TSToS(const TSrc& a_sString, const string& a_sSrcType, const string& a_sDestType)
 {

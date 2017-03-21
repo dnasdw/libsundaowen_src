@@ -28,7 +28,7 @@ const UString& UGetModuleFileName()
 		sFileName.clear();
 	}
 	uSize = strlen(sFileName.c_str());
-#elif SDW_PLATFORM == SDW_PLATFORM_LINUX
+#elif SDW_PLATFORM == SDW_PLATFORM_LINUX || SDW_PLATFORM == SDW_PLATFORM_CYGWIN
 	ssize_t nCount = readlink("/proc/self/exe", &*sFileName.begin(), uMaxPath);
 	if (nCount == -1)
 	{

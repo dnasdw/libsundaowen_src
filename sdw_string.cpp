@@ -129,7 +129,7 @@ U16String WToU16(const wstring& a_sString)
 {
 	return a_sString;
 }
-#elif SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400
+#elif (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || SDW_PLATFORM == SDW_PLATFORM_CYGWIN
 string WToU8(const wstring& a_sString)
 {
 	return TSToS<wstring, string>(a_sString, "WCHAR_T", "UTF-8");

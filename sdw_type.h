@@ -12,7 +12,7 @@
 #if SDW_PLATFORM == SDW_PLATFORM_MACOS
 #include <mach-o/dyld.h>
 #endif
-#if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || defined(SDW_XCONVERT)
+#if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || SDW_PLATFORM == SDW_PLATFORM_CYGWIN || defined(SDW_XCONVERT)
 #include <iconv.h>
 #endif
 #include <dirent.h>
