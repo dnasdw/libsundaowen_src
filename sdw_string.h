@@ -4,6 +4,28 @@
 #include "sdw_platform.h"
 #include "sdw_type.h"
 
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
+#if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1800
+#define strtoll _strtoi64
+#define strtoull _strtoui64
+#define wcstoll _wcstoi64
+#define wcstoull _wcstoui64
+#endif
+#define USTR(x) L##x
+#define PRIUS USTR("ls")
+#define UCscmp wcscmp
+#define UCslen wcslen
+#define UPrintf wprintf
+#define UStat _wstat64
+#else
+#define USTR(x) x
+#define PRIUS USTR("s")
+#define UCscmp strcmp
+#define UCslen strlen
+#define UPrintf printf
+#define UStat stat
+#endif
+
 void SetLocale();
 
 n8 SToN8(const string& a_sString, int a_nRadix = 10);

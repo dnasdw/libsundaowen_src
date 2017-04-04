@@ -8,6 +8,9 @@
 #include <Windows.h>
 #include <direct.h>
 #include <io.h>
+#if defined(SDW_MAIN)
+#include <shellapi.h>
+#endif
 #else
 #if SDW_PLATFORM == SDW_PLATFORM_MACOS
 #include <mach-o/dyld.h>
@@ -166,12 +169,6 @@ typedef uint64_t u64;
 #if SDW_COMPILER_VERSION < 1600
 #define nullptr NULL
 #endif
-#if SDW_COMPILER_VERSION < 1800
-#define strtoll _strtoi64
-#define strtoull _strtoui64
-#define wcstoll _wcstoi64
-#define wcstoull _wcstoui64
-#endif
 #if SDW_COMPILER_VERSION < 1600
 typedef wchar_t Char16_t;
 typedef wstring U16String;
@@ -186,23 +183,17 @@ typedef u16string U16String;
 typedef wchar_t Char16_t;
 typedef wstring U16String;
 #endif
+typedef wchar_t UChar;
 typedef wstring UString;
 typedef wregex URegex;
 typedef struct _stat64 Stat;
-#define USTR(x) L##x
-#define PRIUS USTR("ls")
-#define UPrintf wprintf
-#define UStat _wstat64
 #else
 typedef char16_t Char16_t;
 typedef u16string U16String;
+typedef char UChar;
 typedef string UString;
 typedef regex URegex;
 typedef struct stat Stat;
-#define USTR(x) x
-#define PRIUS USTR("s")
-#define UPrintf printf
-#define UStat stat
 #endif
 
 n64 Align(n64 a_nData, n64 a_nAlignment);

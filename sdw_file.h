@@ -22,7 +22,7 @@
 
 void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
 
-bool UGetFileSize(const UString::value_type* a_pFileName, n64& a_nFileSize);
+bool UGetFileSize(const UChar* a_pFileName, n64& a_nFileSize);
 
 FILE* Fopen(const char* a_pFileName, const char* a_pMode, bool a_bVerbose = true);
 

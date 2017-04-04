@@ -1,6 +1,6 @@
 #include "sdw_dir.h"
 
-bool UMakeDir(const UString::value_type* a_pDirName)
+bool UMakeDir(const UChar* a_pDirName)
 {
 	if (UMkdir(a_pDirName) != 0)
 	{

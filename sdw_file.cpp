@@ -11,7 +11,7 @@ void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...)
 	fwrite(sString.c_str(), 2, sString.size(), a_pFile);
 }
 
-bool UGetFileSize(const UString::value_type* a_pFileName, n64& a_nFileSize)
+bool UGetFileSize(const UChar* a_pFileName, n64& a_nFileSize)
 {
 	Stat st;
 	if (UStat(a_pFileName, &st) != 0)
