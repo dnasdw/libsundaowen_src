@@ -5,6 +5,7 @@
 #include "sdw_type.h"
 #include "sdw_define.h"
 
+#include "sdw_bitmap.h"
 #include "sdw_crc32.h"
 #include "sdw_dir.h"
 #include "sdw_file.h"
