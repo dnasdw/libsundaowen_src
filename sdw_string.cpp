@@ -71,12 +71,12 @@ u16 SToU16(const wstring& a_sString, int a_nRadix /* = 10 */)
 
 u32 SToU32(const string& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u32>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u32>(strtoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u32 SToU32(const wstring& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u32>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u32>(wcstoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u64 SToU64(const string& a_sString, int a_nRadix /* = 10 */)
