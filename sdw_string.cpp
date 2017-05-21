@@ -324,7 +324,7 @@ string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName)
 string FormatV(const char* a_szFormat, va_list a_vaList)
 {
 	static const int c_nFormatBufferSize = 0x100000;
-	char c_szBuffer[c_nFormatBufferSize] = {};
+	static char c_szBuffer[c_nFormatBufferSize] = {};
 	vsnprintf(c_szBuffer, c_nFormatBufferSize, a_szFormat, a_vaList);
 	return c_szBuffer;
 }
