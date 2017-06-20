@@ -3,6 +3,8 @@
 
 #include "sdw_type.h"
 
+#define SDW_PURE = 0
+
 #define SDW_ARRAY_COUNT(a) (sizeof(a) / sizeof(a[0]))
 
 #define SDW_BIT32(n) (UINT32_C(1) << (n))
