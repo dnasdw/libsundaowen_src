@@ -44,6 +44,10 @@ u32 SToU32(const string& a_sString, int a_nRadix = 10);
 u32 SToU32(const wstring& a_sString, int a_nRadix = 10);
 u64 SToU64(const string& a_sString, int a_nRadix = 10);
 u64 SToU64(const wstring& a_sString, int a_nRadix = 10);
+f32 SToF32(const string& a_sString);
+f32 SToF32(const wstring& a_sString);
+f64 SToF64(const string& a_sString);
+f64 SToF64(const wstring& a_sString);
 
 #if (SDW_COMPILER == SDW_COMPILER_GNUC && SDW_COMPILER_VERSION < 50400) || SDW_PLATFORM == SDW_PLATFORM_CYGWIN || (SDW_PLATFORM != SDW_PLATFORM_WINDOWS && defined(SDW_XCONVERT))
 template<typename TSrc, typename TDest>

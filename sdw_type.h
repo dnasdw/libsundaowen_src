@@ -164,6 +164,9 @@ typedef uint16_t u16;
 typedef uint32_t u32;
 typedef uint64_t u64;
 
+typedef float f32;
+typedef double f64;
+
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 #if SDW_COMPILER == SDW_COMPILER_MSC
 #if SDW_COMPILER_VERSION < 1600
