@@ -5,15 +5,23 @@
 #include "sdw_type.h"
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
-#if SDW_COMPILER == SDW_COMPILER_MSC && SDW_COMPILER_VERSION < 1800
+#if SDW_COMPILER == SDW_COMPILER_MSC
+#define strcasecmp _stricmp
+#define strncasecmp _strnicmp
+#define wcscasecmp _wcsicmp
+#define wcsncasecmp _wcsnicmp
+#if SDW_COMPILER_VERSION < 1800
 #define strtoll _strtoi64
 #define strtoull _strtoui64
 #define wcstoll _wcstoi64
 #define wcstoull _wcstoui64
 #endif
+#endif
 #define USTR(x) L##x
 #define PRIUS USTR("ls")
 #define UCscmp wcscmp
+#define UCscasecmp wcscasecmp
+#define UCsncasecmp wcsncasecmp
 #define UCslen wcslen
 #define UPrintf wprintf
 #define UStat _wstat64
@@ -21,6 +29,8 @@
 #define USTR(x) x
 #define PRIUS USTR("s")
 #define UCscmp strcmp
+#define UCscasecmp strcasecmp
+#define UCsncasecmp strncasecmp
 #define UCslen strlen
 #define UPrintf printf
 #define UStat stat
