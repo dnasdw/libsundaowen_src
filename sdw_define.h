@@ -11,9 +11,9 @@
 
 #define SDW_BIT64(n) (UINT64_C(1) << (n))
 
-#define SDW_CONVERT_ENDIAN16(n) (((n) >> 8 & 0xFF) | (((n) & 0xFF) << 8))
+#define SDW_CONVERT_ENDIAN16(n) (((n) >> 8 & 0xFF) | ((n) << 8 & 0xFF00))
 
-#define SDW_CONVERT_ENDIAN32(n) (((n) >> 24 & 0xFF) | ((n) >> 8 & 0xFF00) | (((n) & 0xFF00) << 8) | (((n) & 0xFF) << 24))
+#define SDW_CONVERT_ENDIAN32(n) (((n) >> 24 & 0xFF) | ((n) >> 8 & 0xFF00) | ((n) << 8 & 0xFF0000) | ((n) << 24 & 0xFF000000))
 
 #define SDW_CONVERT_ENDIAN64(n) (((n) >> 56 & UINT64_C(0xFF)) | ((n) >> 40 & UINT64_C(0xFF00)) | ((n) >> 24 & UINT64_C(0xFF0000)) | ((n) >> 8 & UINT64_C(0xFF000000)) | ((n) << 8 & UINT64_C(0xFF00000000)) | ((n) << 24 & UINT64_C(0xFF0000000000)) | ((n) << 40 & UINT64_C(0xFF000000000000)) | ((n) << 56 & UINT64_C(0xFF00000000000000)))
 

@@ -44,7 +44,7 @@ void GenerateCRC32LookupTable()
 	for (u32 i = 0; i < 256; i++)
 	{
 		u32 uCRC32 = i;
-		for (n32 j = 0; j < 8; j++)
+		for (int j = 0; j < 8; j++)
 		{
 			uCRC32 = (uCRC32 >> 1) ^ ((uCRC32 & 1) * s_uPolynomial);
 		}

@@ -51,22 +51,22 @@ n64 SToN64(const wstring& a_sString, int a_nRadix /* = 10 */)
 
 u8 SToU8(const string& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u8>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u8>(strtoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u8 SToU8(const wstring& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u8>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u8>(wcstoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u16 SToU16(const string& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u16>(strtol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u16>(strtoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u16 SToU16(const wstring& a_sString, int a_nRadix /* = 10 */)
 {
-	return static_cast<u16>(wcstol(a_sString.c_str(), nullptr, a_nRadix));
+	return static_cast<u16>(wcstoul(a_sString.c_str(), nullptr, a_nRadix));
 }
 
 u32 SToU32(const string& a_sString, int a_nRadix /* = 10 */)
