@@ -243,21 +243,24 @@ template<typename T>
 vector<T> Split(const T& a_sString, const T& a_sSeparator)
 {
 	vector<T> vString;
-	for (typename T::size_type uOffset = 0; uOffset < a_sString.size(); uOffset += a_sSeparator.size())
+	if (a_sSeparator.size() != 0)
 	{
-		typename T::size_type uPos = a_sString.find(a_sSeparator, uOffset);
-		if (uPos != T::npos)
+		for (typename T::size_type uOffset = 0; uOffset <= a_sString.size(); uOffset += a_sSeparator.size())
 		{
-			vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
-			uOffset = uPos;
-		}
-		else
-		{
-			vString.push_back(a_sString.substr(uOffset));
-			break;
+			typename T::size_type uPos = a_sString.find(a_sSeparator, uOffset);
+			if (uPos != T::npos)
+			{
+				vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
+				uOffset = uPos;
+			}
+			else
+			{
+				vString.push_back(a_sString.substr(uOffset));
+				break;
+			}
 		}
 	}
-	if (vString.empty())
+	else
 	{
 		vString.push_back(a_sString);
 	}
@@ -283,21 +286,24 @@ template<typename T>
 vector<T> SplitOf(const T& a_sString, const T& a_sSeparatorSet)
 {
 	vector<T> vString;
-	for (typename T::const_iterator it = a_sString.begin(); it != a_sString.end(); ++it)
+	if (a_sSeparatorSet.size() != 0)
 	{
-		typename T::const_iterator itPos = find_first_of(it, a_sString.end(), a_sSeparatorSet.begin(), a_sSeparatorSet.end());
-		if (itPos != a_sString.end())
+		for (typename T::size_type uOffset = 0; uOffset <= a_sString.size(); uOffset++)
 		{
-			vString.push_back(a_sString.substr(it - a_sString.begin(), itPos - it));
-			it = itPos;
-		}
-		else
-		{
-			vString.push_back(a_sString.substr(it - a_sString.begin()));
-			break;
+			typename T::size_type uPos = a_sString.find_first_of(a_sSeparatorSet, uOffset);
+			if (uPos != T::npos)
+			{
+				vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
+				uOffset = uPos;
+			}
+			else
+			{
+				vString.push_back(a_sString.substr(uOffset));
+				break;
+			}
 		}
 	}
-	if (vString.empty())
+	else
 	{
 		vString.push_back(a_sString);
 	}
@@ -323,25 +329,35 @@ template<typename T>
 vector<T> RegexSplitWith(const T& a_sString, const T& a_sSeparatorSet)
 {
 	vector<T> vString;
-	basic_regex<typename T::value_type> rgx(a_sSeparatorSet, regex_constants::ECMAScript);
-	match_results<typename T::const_iterator> match;
-	typename T::size_type uPos0 = 0;
-	typename T::size_type uPos1 = 0;
-	while (regex_search(a_sString.begin() + uPos1, a_sString.end(), match, rgx))
+	if (a_sSeparatorSet.size() != 0)
 	{
-		uPos1 += match.position();
-		if (uPos1 != uPos0)
+		basic_regex<typename T::value_type> rgx(a_sSeparatorSet, regex_constants::ECMAScript);
+		match_results<typename T::const_iterator> match;
+		typename T::size_type uOffset = 0;
+		typename T::size_type uPos = uOffset;
+		while (uOffset < a_sString.size())
 		{
-			vString.push_back(a_sString.substr(uPos0, uPos1 - uPos0));
-			uPos0 = uPos1;
+			if (regex_search(a_sString.begin() + uPos, a_sString.end(), match, rgx))
+			{
+				typename T::size_type uSize = match.length();
+				if (uSize == 0)
+				{
+					vString.push_back(a_sString.substr(uOffset));
+					break;
+				}
+				uPos += match.position();
+				vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
+				uOffset = uPos;
+				uPos += uSize;
+			}
+			else
+			{
+				vString.push_back(a_sString.substr(uOffset));
+				break;
+			}
 		}
-		uPos1 += match.length();
 	}
-	if (uPos0 != a_sString.size())
-	{
-		vString.push_back(a_sString.substr(uPos0));
-	}
-	if (vString.empty())
+	else
 	{
 		vString.push_back(a_sString);
 	}
@@ -367,27 +383,34 @@ template<typename T>
 vector<T> RegexSplitWithCut(const T& a_sString, const T& a_sSeparatorSet)
 {
 	vector<T> vString;
-	basic_regex<typename T::value_type> rgx(a_sSeparatorSet, regex_constants::ECMAScript);
-	match_results<typename T::const_iterator> match;
-	typename T::size_type uPos0 = 0;
-	typename T::size_type uPos1 = 0;
-	while (regex_search(a_sString.begin() + uPos1, a_sString.end(), match, rgx))
+	if (a_sSeparatorSet.size() != 0)
 	{
-		uPos1 += match.position();
-		typename T::size_type uSize = match.length();
-		if (uPos1 != uPos0)
+		basic_regex<typename T::value_type> rgx(a_sSeparatorSet, regex_constants::ECMAScript);
+		match_results<typename T::const_iterator> match;
+		typename T::size_type uOffset = 0;
+		while (uOffset <= a_sString.size())
 		{
-			vString.push_back(a_sString.substr(uPos0, uPos1 - uPos0));
+			if (regex_search(a_sString.begin() + uOffset, a_sString.end(), match, rgx))
+			{
+				typename T::size_type uSize = match.length();
+				if (uSize == 0)
+				{
+					vString.push_back(a_sString.substr(uOffset));
+					break;
+				}
+				typename T::size_type uPos = uOffset + match.position();
+				vString.push_back(a_sString.substr(uOffset, uPos - uOffset));
+				vString.push_back(a_sString.substr(uPos, uSize));
+				uOffset = uPos + uSize;
+			}
+			else
+			{
+				vString.push_back(a_sString.substr(uOffset));
+				break;
+			}
 		}
-		vString.push_back(a_sString.substr(uPos1, uSize));
-		uPos0 = uPos1 + uSize;
-		uPos1 = uPos0;
 	}
-	if (uPos0 != a_sString.size())
-	{
-		vString.push_back(a_sString.substr(uPos0));
-	}
-	if (vString.empty())
+	else
 	{
 		vString.push_back(a_sString);
 	}
