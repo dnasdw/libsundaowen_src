@@ -335,7 +335,7 @@ vector<T> RegexSplitWith(const T& a_sString, const T& a_sSeparatorSet)
 		match_results<typename T::const_iterator> match;
 		typename T::size_type uOffset = 0;
 		typename T::size_type uPos = uOffset;
-		while (uOffset < a_sString.size())
+		while (uOffset <= a_sString.size())
 		{
 			if (regex_search(a_sString.begin() + uPos, a_sString.end(), match, rgx))
 			{
