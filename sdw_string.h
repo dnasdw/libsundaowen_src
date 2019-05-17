@@ -433,9 +433,9 @@ vector<T> RegexSplitWithCut(const T& a_sString, const typename T::value_type* a_
 }
 
 template<typename T>
-bool StartWith(const T& a_sString, const T& a_sPrefix, u32 a_uStart = 0)
+bool StartWith(const T& a_sString, const T& a_sPrefix, typename T::size_type a_uStart = 0)
 {
-	if (a_uStart > static_cast<u32>(a_sString.size()))
+	if (a_uStart > a_sString.size())
 	{
 		return false;
 	}
@@ -446,7 +446,7 @@ bool StartWith(const T& a_sString, const T& a_sPrefix, u32 a_uStart = 0)
 }
 
 template<typename T>
-bool StartWith(const T& a_sString, const typename T::value_type* a_pPrefix, u32 a_uStart = 0)
+bool StartWith(const T& a_sString, const typename T::value_type* a_pPrefix, typename T::size_type a_uStart = 0)
 {
 	if (a_pPrefix == nullptr)
 	{
