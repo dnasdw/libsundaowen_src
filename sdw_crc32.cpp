@@ -53,7 +53,7 @@ void GenerateCRC32LookupTable()
 }
 #endif
 
-u32 UpdateCRC32(u8* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 /* = 0 */)
+u32 UpdateCRC32(const u8* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 /* = 0 */)
 {
 #if 0
 	static bool c_bHasCRC32LookupTable = false;
