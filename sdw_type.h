@@ -189,6 +189,8 @@ typedef wstring U16String;
 typedef wchar_t UChar;
 typedef wstring UString;
 typedef wregex URegex;
+typedef wcmatch UCmatch;
+typedef wsmatch USmatch;
 typedef struct _stat64 Stat;
 #else
 typedef char16_t Char16_t;
@@ -196,6 +198,8 @@ typedef u16string U16String;
 typedef char UChar;
 typedef string UString;
 typedef regex URegex;
+typedef cmatch UCmatch;
+typedef smatch USmatch;
 typedef struct stat Stat;
 #endif
 
