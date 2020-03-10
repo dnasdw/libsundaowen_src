@@ -11,6 +11,7 @@
 #define Fseek _fseeki64
 #define Ftell _ftelli64
 #define Lseek _lseeki64
+#define URename _wrename
 #else
 #define Chsize ftruncate
 #define Fileno fileno
@@ -18,6 +19,7 @@
 #define Fseek fseeko
 #define Ftell ftello
 #define Lseek lseek
+#define URename rename
 #endif
 
 void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
