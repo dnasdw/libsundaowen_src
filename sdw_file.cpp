@@ -5,9 +5,19 @@ void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...)
 {
 	va_list vaList;
 	va_start(vaList, a_szFormat);
-	wstring sFormatted = FormatV(a_szFormat, vaList);
+	int nBufferSize = vswprintf(nullptr, 0, a_szFormat, vaList);
 	va_end(vaList);
-	U16String sString = WToU16(sFormatted);
+	if (nBufferSize < 0)
+	{
+		return;
+	}
+	wstring sBuffer;
+	sBuffer.resize(nBufferSize + 1);
+	va_start(vaList, a_szFormat);
+	vswprintf(&*sBuffer.begin(), nBufferSize + 1, a_szFormat, vaList);
+	va_end(vaList);
+	sBuffer.erase(nBufferSize);
+	U16String sString = WToU16(sBuffer);
 	fwrite(sString.c_str(), 2, sString.size(), a_pFile);
 }
 

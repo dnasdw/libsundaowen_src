@@ -182,19 +182,19 @@ U16String WToU16(const wstring& a_sString)
 #else
 string WToU8(const wstring& a_sString)
 {
-	static wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
+	wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
 	return c_cvt_u8.to_bytes(a_sString);
 }
 
 string U16ToU8(const U16String& a_sString)
 {
-	static wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
+	wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
 	return c_cvt_u8_u16.to_bytes(a_sString);
 }
 
 wstring U8ToW(const string& a_sString)
 {
-	static wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
+	wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
 	return c_cvt_u8.from_bytes(a_sString);
 }
 
@@ -205,7 +205,7 @@ wstring U16ToW(const U16String& a_sString)
 
 U16String U8ToU16(const string& a_sString)
 {
-	static wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
+	wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
 	return c_cvt_u8_u16.from_bytes(a_sString);
 }
 
@@ -341,36 +341,40 @@ string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName)
 }
 #endif
 
-string FormatV(const char* a_szFormat, va_list a_vaList)
-{
-	static const int c_nFormatBufferSize = 0x100000;
-	static char c_szBuffer[c_nFormatBufferSize] = {};
-	vsnprintf(c_szBuffer, c_nFormatBufferSize, a_szFormat, a_vaList);
-	return c_szBuffer;
-}
-
-wstring FormatV(const wchar_t* a_szFormat, va_list a_vaList)
-{
-	static const int c_nFormatBufferSize = 0x100000;
-	static wchar_t c_szBuffer[c_nFormatBufferSize] = {};
-	vswprintf(c_szBuffer, c_nFormatBufferSize, a_szFormat, a_vaList);
-	return c_szBuffer;
-}
-
 string Format(const char* a_szFormat, ...)
 {
 	va_list vaList;
 	va_start(vaList, a_szFormat);
-	string sFormatted = FormatV(a_szFormat, vaList);
+	int nBufferSize = vsnprintf(nullptr, 0, a_szFormat, vaList);
 	va_end(vaList);
-	return sFormatted;
+	if (nBufferSize <= 0)
+	{
+		return "";
+	}
+	string sBuffer;
+	sBuffer.resize(nBufferSize + 1);
+	va_start(vaList, a_szFormat);
+	vsnprintf(&*sBuffer.begin(), nBufferSize + 1, a_szFormat, vaList);
+	va_end(vaList);
+	sBuffer.erase(nBufferSize);
+	return sBuffer;
 }
 
 wstring Format(const wchar_t* a_szFormat, ...)
 {
 	va_list vaList;
 	va_start(vaList, a_szFormat);
-	wstring sFormatted = FormatV(a_szFormat, vaList);
+	int nBufferSize = vswprintf(nullptr, 0, a_szFormat, vaList);
 	va_end(vaList);
-	return sFormatted;
+	if (nBufferSize <= 0)
+	{
+		return L"";
+	}
+	wstring sBuffer;
+	sBuffer.resize(nBufferSize + 1);
+	va_start(vaList, a_szFormat);
+	vswprintf(&*sBuffer.begin(), nBufferSize + 1, a_szFormat, vaList);
+	va_end(vaList);
+	sBuffer.erase(nBufferSize);
+	return sBuffer;
 }

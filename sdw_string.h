@@ -148,8 +148,6 @@ UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName);
 #endif
 
-string FormatV(const char* a_szFormat, va_list a_vaList);
-wstring FormatV(const wchar_t* a_szFormat, va_list a_vaList);
 string Format(const char* a_szFormat, ...);
 wstring Format(const wchar_t* a_szFormat, ...);
 
