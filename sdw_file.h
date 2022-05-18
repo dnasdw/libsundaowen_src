@@ -24,12 +24,12 @@
 
 void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...);
 
-bool UGetFileSize(const UChar* a_pFileName, n64& a_nFileSize);
+bool UGetFileSize(const UString& a_sFileName, n64& a_nFileSize);
 
-FILE* Fopen(const char* a_pFileName, const char* a_pMode, bool a_bVerbose = true);
+FILE* Fopen(const string& a_sFileName, const string& a_sMode, bool a_bVerbose = true);
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
-FILE* FopenW(const wchar_t* a_pFileName, const wchar_t* a_pMode, bool a_bVerbose = true);
+FILE* FopenW(const wstring& a_sFileName, const wstring& a_sMode, bool a_bVerbose = true);
 #endif
 
 bool Seek(FILE* a_fpFile, n64 a_nOffset);

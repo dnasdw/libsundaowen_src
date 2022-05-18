@@ -21,10 +21,10 @@ void fu16printf(FILE* a_pFile, const wchar_t* a_szFormat, ...)
 	fwrite(sString.c_str(), 2, sString.size(), a_pFile);
 }
 
-bool UGetFileSize(const UChar* a_pFileName, n64& a_nFileSize)
+bool UGetFileSize(const UString& a_sFileName, n64& a_nFileSize)
 {
 	Stat st;
-	if (UStat(a_pFileName, &st) != 0)
+	if (UStat(a_sFileName.c_str(), &st) != 0)
 	{
 		a_nFileSize = 0;
 		return false;
@@ -33,23 +33,23 @@ bool UGetFileSize(const UChar* a_pFileName, n64& a_nFileSize)
 	return true;
 }
 
-FILE* Fopen(const char* a_pFileName, const char* a_pMode, bool a_bVerbose /* = true */)
+FILE* Fopen(const string& a_sFileName, const string& a_sMode, bool a_bVerbose /* = true */)
 {
-	FILE* fp = fopen(a_pFileName, a_pMode);
+	FILE* fp = fopen(a_sFileName.c_str(), a_sMode.c_str());
 	if (fp == nullptr && a_bVerbose)
 	{
-		printf("ERROR: open file %s failed\n\n", a_pFileName);
+		printf("ERROR: open file %s failed\n\n", a_sFileName.c_str());
 	}
 	return fp;
 }
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
-FILE* FopenW(const wchar_t* a_pFileName, const wchar_t* a_pMode, bool a_bVerbose /* = true */)
+FILE* FopenW(const wstring& a_sFileName, const wstring& a_sMode, bool a_bVerbose /* = true */)
 {
-	FILE* fp = _wfopen(a_pFileName, a_pMode);
+	FILE* fp = _wfopen(a_sFileName.c_str(), a_sMode.c_str());
 	if (fp == nullptr && a_bVerbose)
 	{
-		wprintf(L"ERROR: open file %ls failed\n\n", a_pFileName);
+		wprintf(L"ERROR: open file %ls failed\n\n", a_sFileName.c_str());
 	}
 	return fp;
 }

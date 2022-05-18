@@ -53,7 +53,7 @@ void GenerateCRC32LookupTable()
 }
 #endif
 
-u32 UpdateCRC32(const u8* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 /* = 0 */)
+u32 UpdateCRC32(const void* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 /* = 0 */)
 {
 #if 0
 	static bool c_bHasCRC32LookupTable = false;
@@ -63,10 +63,11 @@ u32 UpdateCRC32(const u8* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 /* = 0 */)
 		c_bHasCRC32LookupTable = true;
 	}
 #endif
+	const u8* pData = reinterpret_cast<const u8*>(a_pData);
 	u32 uCRC32 = ~a_uPreviousCRC32;
 	while (a_uSize-- != 0)
 	{
-		uCRC32 = (uCRC32 >> 8) ^ s_uCRC32LookupTable[(uCRC32 ^ *a_pData++) & 0xFF];
+		uCRC32 = (uCRC32 >> 8) ^ s_uCRC32LookupTable[(uCRC32 ^ *pData++) & 0xFF];
 	}
 	return ~uCRC32;
 }

@@ -3,6 +3,6 @@
 
 #include "sdw_type.h"
 
-u32 UpdateCRC32(const u8* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 = 0);
+u32 UpdateCRC32(const void* a_pData, u32 a_uSize, u32 a_uPreviousCRC32 = 0);
 
 #endif	// LIBSUNDAOWEN_SDW_CRC32_H_

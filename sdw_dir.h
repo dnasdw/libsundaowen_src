@@ -12,6 +12,6 @@
 #define UMkdir Mkdir
 #endif
 
-bool UMakeDir(const UChar* a_pDirName);
+bool UMakeDir(const UString& a_sDirName);
 
 #endif	// LIBSUNDAOWEN_SDW_DIR_H_
