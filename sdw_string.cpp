@@ -120,9 +120,19 @@ string WToU8(const wstring& a_sString)
 	return sString;
 }
 
+string WToU8_TS(const wstring& a_sString)
+{
+	return WToU8(a_sString);
+}
+
 string U16ToU8(const U16String& a_sString)
 {
 	return WToU8(a_sString);
+}
+
+string U16ToU8_TS(const U16String& a_sString)
+{
+	return WToU8_TS(a_sString);
 }
 
 wstring U8ToW(const string& a_sString)
@@ -135,7 +145,17 @@ wstring U8ToW(const string& a_sString)
 	return sString;
 }
 
+wstring U8ToW_TS(const string& a_sString)
+{
+	return U8ToW(a_sString);
+}
+
 wstring U16ToW(const U16String& a_sString)
+{
+	return a_sString;
+}
+
+wstring U16ToW_TS(const U16String& a_sString)
 {
 	return a_sString;
 }
@@ -145,7 +165,17 @@ U16String U8ToU16(const string& a_sString)
 	return U8ToW(a_sString);
 }
 
+U16String U8ToU16_TS(const string& a_sString)
+{
+	return U8ToW_TS(a_sString);
+}
+
 U16String WToU16(const wstring& a_sString)
+{
+	return a_sString;
+}
+
+U16String WToU16_TS(const wstring& a_sString)
 {
 	return a_sString;
 }
@@ -155,9 +185,19 @@ string WToU8(const wstring& a_sString)
 	return TSToS<wstring, string>(a_sString, "WCHAR_T", "UTF-8");
 }
 
+string WToU8_TS(const wstring& a_sString)
+{
+	return WToU8(a_sString);
+}
+
 string U16ToU8(const U16String& a_sString)
 {
 	return TSToS<U16String, string>(a_sString, "UTF-16LE", "UTF-8");
+}
+
+string U16ToU8_TS(const U16String& a_sString)
+{
+	return U16ToU8(a_sString);
 }
 
 wstring U8ToW(const string& a_sString)
@@ -165,9 +205,19 @@ wstring U8ToW(const string& a_sString)
 	return TSToS<string, wstring>(a_sString, "UTF-8", "WCHAR_T");
 }
 
+wstring U8ToW_TS(const string& a_sString)
+{
+	return U8ToW(a_sString);
+}
+
 wstring U16ToW(const U16String& a_sString)
 {
 	return TSToS<U16String, wstring>(a_sString, "UTF-16LE", "WCHAR_T");
+}
+
+wstring U16ToW_TS(const U16String& a_sString)
+{
+	return U16ToW(a_sString);
 }
 
 U16String U8ToU16(const string& a_sString)
@@ -175,12 +225,28 @@ U16String U8ToU16(const string& a_sString)
 	return TSToS<string, U16String>(a_sString, "UTF-8", "UTF-16LE");
 }
 
+U16String U8ToU16_TS(const string& a_sString)
+{
+	return U8ToU16(a_sString);
+}
+
 U16String WToU16(const wstring& a_sString)
 {
 	return TSToS<wstring, U16String>(a_sString, "WCHAR_T", "UTF-16LE");
 }
+
+U16String WToU16_TS(const wstring& a_sString)
+{
+	return WToU16(a_sString);
+}
 #else
 string WToU8(const wstring& a_sString)
+{
+	static wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
+	return c_cvt_u8.to_bytes(a_sString);
+}
+
+string WToU8_TS(const wstring& a_sString)
 {
 	wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
 	return c_cvt_u8.to_bytes(a_sString);
@@ -188,11 +254,23 @@ string WToU8(const wstring& a_sString)
 
 string U16ToU8(const U16String& a_sString)
 {
+	static wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
+	return c_cvt_u8_u16.to_bytes(a_sString);
+}
+
+string U16ToU8_TS(const U16String& a_sString)
+{
 	wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
 	return c_cvt_u8_u16.to_bytes(a_sString);
 }
 
 wstring U8ToW(const string& a_sString)
+{
+	static wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
+	return c_cvt_u8.from_bytes(a_sString);
+}
+
+wstring U8ToW_TS(const string& a_sString)
 {
 	wstring_convert<codecvt_utf8<wchar_t>> c_cvt_u8;
 	return c_cvt_u8.from_bytes(a_sString);
@@ -203,7 +281,18 @@ wstring U16ToW(const U16String& a_sString)
 	return U8ToW(U16ToU8(a_sString));
 }
 
+wstring U16ToW_TS(const U16String& a_sString)
+{
+	return U8ToW_TS(U16ToU8_TS(a_sString));
+}
+
 U16String U8ToU16(const string& a_sString)
+{
+	static wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
+	return c_cvt_u8_u16.from_bytes(a_sString);
+}
+
+U16String U8ToU16_TS(const string& a_sString)
 {
 	wstring_convert<codecvt_utf8_utf16<Char16_t>, Char16_t> c_cvt_u8_u16;
 	return c_cvt_u8_u16.from_bytes(a_sString);
@@ -213,6 +302,11 @@ U16String WToU16(const wstring& a_sString)
 {
 	return U8ToU16(WToU8(a_sString));
 }
+
+U16String WToU16_TS(const wstring& a_sString)
+{
+	return U8ToU16_TS(WToU8_TS(a_sString));
+}
 #endif
 
 string AToU8(const string& a_sString)
@@ -220,9 +314,19 @@ string AToU8(const string& a_sString)
 	return WToU8(AToW(a_sString));
 }
 
+string AToU8_TS(const string& a_sString)
+{
+	return WToU8_TS(AToW_TS(a_sString));
+}
+
 string U8ToA(const string& a_sString)
 {
 	return WToA(U8ToW(a_sString));
+}
+
+string U8ToA_TS(const string& a_sString)
+{
+	return WToA_TS(U8ToW_TS(a_sString));
 }
 
 U16String AToU16(const string& a_sString)
@@ -230,9 +334,19 @@ U16String AToU16(const string& a_sString)
 	return WToU16(AToW(a_sString));
 }
 
+U16String AToU16_TS(const string& a_sString)
+{
+	return WToU16_TS(AToW_TS(a_sString));
+}
+
 string U16ToA(const U16String& a_sString)
 {
 	return WToA(U16ToW(a_sString));
+}
+
+string U16ToA_TS(const U16String& a_sString)
+{
+	return WToA_TS(U16ToW_TS(a_sString));
 }
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
@@ -246,6 +360,11 @@ wstring AToW(const string& a_sString)
 	return sString;
 }
 
+wstring AToW_TS(const string& a_sString)
+{
+	return AToW(a_sString);
+}
+
 string WToA(const wstring& a_sString)
 {
 	int nLength = WideCharToMultiByte(CP_ACP, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);
@@ -255,15 +374,30 @@ string WToA(const wstring& a_sString)
 	delete[] pTemp;
 	return sString;
 }
+
+string WToA_TS(const wstring& a_sString)
+{
+	return WToA(a_sString);
+}
 #else
 wstring AToW(const string& a_sString)
 {
 	return U8ToW(a_sString);
 }
 
+wstring AToW_TS(const string& a_sString)
+{
+	return U8ToW_TS(a_sString);
+}
+
 string WToA(const wstring& a_sString)
 {
 	return WToU8(a_sString);
+}
+
+string WToA_TS(const wstring& a_sString)
+{
+	return WToU8_TS(a_sString);
 }
 #endif
 
@@ -279,6 +413,11 @@ wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 	return sString;
 }
 
+wstring XToW_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return XToW(a_sString, a_nCodePage, a_pCodeName);
+}
+
 string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	int nLength = WideCharToMultiByte(a_nCodePage, 0, a_sString.c_str(), -1, nullptr, 0, nullptr, nullptr);
@@ -288,15 +427,30 @@ string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
 	delete[] pTemp;
 	return sString;
 }
+
+string WToX_TS(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(a_sString, a_nCodePage, a_pCodeName);
+}
 #else
 wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return TSToS<string, wstring>(a_sString, a_pCodeName, "WCHAR_T");
 }
 
+wstring XToW_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return XToW(a_sString, a_nCodePage, a_pCodeName);
+}
+
 string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return TSToS<wstring, string>(a_sString, "WCHAR_T", a_pCodeName);
+}
+
+string WToX_TS(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX(a_sString, a_nCodePage, a_pCodeName);
 }
 #endif
 
@@ -305,9 +459,19 @@ string XToU8(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 	return WToU8(XToW(a_sString, a_nCodePage, a_pCodeName));
 }
 
+string XToU8_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU8_TS(XToW_TS(a_sString, a_nCodePage, a_pCodeName));
+}
+
 string U8ToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return WToX(U8ToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+string U8ToX_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX_TS(U8ToW_TS(a_sString), a_nCodePage, a_pCodeName);
 }
 
 U16String XToU16(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
@@ -315,9 +479,19 @@ U16String XToU16(const string& a_sString, int a_nCodePage, const char* a_pCodeNa
 	return WToU16(XToW(a_sString, a_nCodePage, a_pCodeName));
 }
 
+U16String XToU16_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU16_TS(XToW_TS(a_sString, a_nCodePage, a_pCodeName));
+}
+
 string U16ToX(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return WToX(U16ToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+string U16ToX_TS(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX_TS(U16ToW_TS(a_sString), a_nCodePage, a_pCodeName);
 }
 
 string XToA(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
@@ -325,9 +499,19 @@ string XToA(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 	return WToA(XToW(a_sString, a_nCodePage, a_pCodeName));
 }
 
+string XToA_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToA_TS(XToW_TS(a_sString, a_nCodePage, a_pCodeName));
+}
+
 string AToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return WToX(AToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+string AToX_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX_TS(AToW_TS(a_sString), a_nCodePage, a_pCodeName);
 }
 
 UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
@@ -335,9 +519,19 @@ UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
 	return WToU(XToW(a_sString, a_nCodePage, a_pCodeName));
 }
 
+UString XToU_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToU_TS(XToW_TS(a_sString, a_nCodePage, a_pCodeName));
+}
+
 string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName)
 {
 	return WToX(UToW(a_sString), a_nCodePage, a_pCodeName);
+}
+
+string UToX_TS(const UString& a_sString, int a_nCodePage, const char* a_pCodeName)
+{
+	return WToX_TS(UToW_TS(a_sString), a_nCodePage, a_pCodeName);
 }
 #endif
 

@@ -103,49 +103,87 @@ TDest TSToS(const TSrc& a_sString, const string& a_sSrcType, const string& a_sDe
 #endif
 
 string WToU8(const wstring& a_sString);
+string WToU8_TS(const wstring& a_sString);
 string U16ToU8(const U16String& a_sString);
+string U16ToU8_TS(const U16String& a_sString);
 wstring U8ToW(const string& a_sString);
+wstring U8ToW_TS(const string& a_sString);
 wstring U16ToW(const U16String& a_sString);
+wstring U16ToW_TS(const U16String& a_sString);
 U16String U8ToU16(const string& a_sString);
+U16String U8ToU16_TS(const string& a_sString);
 U16String WToU16(const wstring& a_sString);
+U16String WToU16_TS(const wstring& a_sString);
 string AToU8(const string& a_sString);
+string AToU8_TS(const string& a_sString);
 string U8ToA(const string& a_sString);
+string U8ToA_TS(const string& a_sString);
 U16String AToU16(const string& a_sString);
+U16String AToU16_TS(const string& a_sString);
 string U16ToA(const U16String& a_sString);
+string U16ToA_TS(const U16String& a_sString);
 wstring AToW(const string& a_sString);
+wstring AToW_TS(const string& a_sString);
 string WToA(const wstring& a_sString);
+string WToA_TS(const wstring& a_sString);
 
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 #define U8ToU(x) U8ToW(x)
+#define U8ToU_TS(x) U8ToW_TS(x)
 #define UToU8(x) WToU8(x)
+#define UToU8_TS(x) WToU8_TS(x)
 #define WToU(x) wstring(x)
+#define WToU_TS(x) wstring(x)
 #define UToW(x) wstring(x)
+#define UToW_TS(x) wstring(x)
 #define U16ToU(x) U16ToW(x)
+#define U16ToU_TS(x) U16ToW_TS(x)
 #define UToU16(x) WToU16(x)
+#define UToU16_TS(x) WToU16_TS(x)
 #define AToU(x) AToW(x)
+#define AToU_TS(x) AToW_TS(x)
 #define UToA(x) WToA(x)
+#define UToA_TS(x) WToA_TS(x)
 #else
 #define U8ToU(x) string(x)
+#define U8ToU_TS(x) string(x)
 #define UToU8(x) string(x)
+#define UToU8_TS(x) string(x)
 #define WToU(x) WToU8(x)
+#define WToU_TS(x) WToU8_TS(x)
 #define UToW(x) U8ToW(x)
+#define UToW_TS(x) U8ToW_TS(x)
 #define U16ToU(x) U16ToU8(x)
+#define U16ToU_TS(x) U16ToU8_TS(x)
 #define UToU16(x) U8ToU16(x)
+#define UToU16_TS(x) U8ToU16_TS(x)
 #define AToU(x) string(x)
+#define AToU_TS(x) string(x)
 #define UToA(x) string(x)
+#define UToA_TS(x) string(x)
 #endif
 
 #if defined(SDW_XCONVERT)
 wstring XToW(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+wstring XToW_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string WToX(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName);
+string WToX_TS(const wstring& a_sString, int a_nCodePage, const char* a_pCodeName);
 string XToU8(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string XToU8_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string U8ToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string U8ToX_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 U16String XToU16(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+U16String XToU16_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string U16ToX(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName);
+string U16ToX_TS(const U16String& a_sString, int a_nCodePage, const char* a_pCodeName);
 string XToA(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string XToA_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string AToX(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+string AToX_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 UString XToU(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
+UString XToU_TS(const string& a_sString, int a_nCodePage, const char* a_pCodeName);
 string UToX(const UString& a_sString, int a_nCodePage, const char* a_pCodeName);
+string UToX_TS(const UString& a_sString, int a_nCodePage, const char* a_pCodeName);
 #endif
 
 string Format(const char* a_szFormat, ...);
