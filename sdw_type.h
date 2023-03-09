@@ -107,8 +107,59 @@ typedef unsigned char      uint8_t;
 typedef unsigned short     uint16_t;
 typedef unsigned int       uint32_t;
 typedef unsigned long long uint64_t;
+#ifndef INT8_MIN
+#define INT8_MIN         (-0x7f - 1)
+#endif
+#ifndef INT16_MIN
+#define INT16_MIN        (-0x7fff - 1)
+#endif
+#ifndef INT32_MIN
+#define INT32_MIN        (-0x7fffffff - 1)
+#endif
+#ifndef INT64_MIN
+#define INT64_MIN        (-0x7fffffffffffffffLL - 1)
+#endif
+#ifndef INT8_MAX
+#define INT8_MAX         0x7f
+#endif
+#ifndef INT16_MAX
+#define INT16_MAX        0x7fff
+#endif
+#ifndef INT32_MAX
+#define INT32_MAX        0x7fffffff
+#endif
+#ifndef INT64_MAX
+#define INT64_MAX        0x7fffffffffffffff
+#endif
+#ifndef UINT8_MAX
+#define UINT8_MAX        0xff
+#endif
+#ifndef UINT16_MAX
+#define UINT16_MAX       0xffff
+#endif
 #ifndef UINT32_MAX
 #define UINT32_MAX       0xffffffffU
+#endif
+#ifndef UINT64_MAX
+#define UINT64_MAX       0xffffffffffffffffULL
+#endif
+#ifndef INT8_C
+#define INT8_C(x)    (x)
+#endif
+#ifndef INT16_C
+#define INT16_C(x)   (x)
+#endif
+#ifndef INT32_C
+#define INT32_C(x)   (x)
+#endif
+#ifndef INT64_C
+#define INT64_C(x)   (x ## LL)
+#endif
+#ifndef UINT8_C
+#define UINT8_C(x)   (x)
+#endif
+#ifndef UINT16_C
+#define UINT16_C(x)  (x)
 #endif
 #ifndef UINT32_C
 #define UINT32_C(x)  (x ## U)
@@ -129,7 +180,12 @@ typedef unsigned long long uint64_t;
 #include <codecvt>
 #endif
 #include <deque>
+#include <fstream>
 #include <functional>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+#include <istream>
 #include <iterator>
 #include <limits>
 #include <list>
@@ -138,11 +194,14 @@ typedef unsigned long long uint64_t;
 #include <memory>
 #include <new>
 #include <numeric>
+#include <ostream>
 #include <queue>
 #include <random>
 #include <regex>
 #include <set>
+#include <sstream>
 #include <stack>
+#include <streambuf>
 #include <string>
 #include <tuple>
 #include <unordered_map>
