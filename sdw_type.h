@@ -264,4 +264,11 @@ typedef struct stat Stat;
 
 n64 Align(n64 a_nData, n64 a_nAlignment);
 
+template<typename CharT, typename Traits, typename Allocator>
+void ShrinkToFit(basic_string<CharT, Traits, Allocator>& a_sString)
+{
+	basic_string<CharT, Traits, Allocator> sTemp(a_sString);
+	a_sString.swap(sTemp);
+}
+
 #endif	// LIBSUNDAOWEN_SDW_TYPE_H_
