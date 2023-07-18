@@ -35,7 +35,21 @@ bool UGetFileSize(const UString& a_sFileName, n64& a_nFileSize)
 
 FILE* Fopen(const string& a_sFileName, const string& a_sMode, bool a_bVerbose /* = true */)
 {
-	FILE* fp = fopen(a_sFileName.c_str(), a_sMode.c_str());
+	string sFileName = a_sFileName;
+#if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
+	static const size_t kMaxPath = 32768;
+	char nFilePath[kMaxPath] = {};
+	if (_fullpath(nFilePath, sFileName.c_str(), kMaxPath) == nullptr)
+	{
+		return nullptr;
+	}
+	sFileName = nFilePath;
+	if (!StartWith(sFileName, "\\\\"))
+	{
+		sFileName = "\\\\?\\" + sFileName;
+	}
+#endif
+	FILE* fp = fopen(sFileName.c_str(), a_sMode.c_str());
 	if (fp == nullptr && a_bVerbose)
 	{
 		printf("ERROR: open file %s failed\n\n", a_sFileName.c_str());
@@ -46,7 +60,19 @@ FILE* Fopen(const string& a_sFileName, const string& a_sMode, bool a_bVerbose /*
 #if SDW_PLATFORM == SDW_PLATFORM_WINDOWS
 FILE* FopenW(const wstring& a_sFileName, const wstring& a_sMode, bool a_bVerbose /* = true */)
 {
-	FILE* fp = _wfopen(a_sFileName.c_str(), a_sMode.c_str());
+	wstring sFileName = a_sFileName;
+	static const size_t kMaxPath = 32768;
+	wchar_t uFilePath[kMaxPath] = {};
+	if (_wfullpath(uFilePath, sFileName.c_str(), kMaxPath) == nullptr)
+	{
+		return nullptr;
+	}
+	sFileName = uFilePath;
+	if (!StartWith(sFileName, L"\\\\"))
+	{
+		sFileName = L"\\\\?\\" + sFileName;
+	}
+	FILE* fp = _wfopen(sFileName.c_str(), a_sMode.c_str());
 	if (fp == nullptr && a_bVerbose)
 	{
 		wprintf(L"ERROR: open file %ls failed\n\n", a_sFileName.c_str());
